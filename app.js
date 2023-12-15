@@ -14,38 +14,28 @@ const divide = function(a, b) {
 	return a / b;
 };
 
-let firstNum, operator, secondNum;
+let firstNum, operator, secondNum, solution;
 
 function operate(x, op, y) {
     switch (op) {
         case '+':
-            console.log(add(x, y));
-            break;
+            return add(x, y);
         case '-':
-            console.log(subtract(x, y));
-            break;
+            return subtract(x, y);
         case '*':
-            console.log(multiply(x, y));
-            break;
+            return multiply(x, y);
         case '/':
-            console.log(divide(x, y));
-            break;
+            return divide(x, y);
         default:
             console.log("Invalid operator");
     }
 };
 
-console.log(operate(1, '+', 1));
-console.log(operate(1123, '-', 186));
-console.log(operate(21, '*', 138));
-console.log(operate(52, '/', 4));
-console.log(operate(1, '?', 1));
-
 const display = document.querySelector('.display');
 const digitBtns = document.querySelectorAll('.digit');
 
 let displayValue = display.textContent;
-digitBtns.forEach( (num) => {
+digitBtns.forEach((num) => {
     num.addEventListener('click', () => {
         displayValue += num.textContent;
         display.textContent = displayValue;
@@ -56,4 +46,28 @@ const clearBtn = document.querySelector('.clear');
 clearBtn.addEventListener('click', () => {
     displayValue = "";
     display.textContent = displayValue;
+    firstNum, secondNum, operator, solution = null;
 });
+
+const operatorBtns = document.querySelectorAll('.operator');
+operatorBtns.forEach((operatorBtn) => {
+    operatorBtn.addEventListener('click', () => {
+        operator = operatorBtn.textContent;
+        if(firstNum == null) {
+            firstNum = +displayValue;
+            displayValue = "";
+        } else {
+            secondNum = +displayValue;
+            displayValue = "";
+        }
+        console.log(`firstNum: ${firstNum}, operator: ${operator}, secondNum: ${secondNum}`);
+        if(firstNum != null && secondNum != null) {
+            solution = operate(firstNum, operator, secondNum);
+            display.textContent = solution;
+            firstNum = solution;
+            console.log(solution);
+        }
+    });
+}
+
+);
