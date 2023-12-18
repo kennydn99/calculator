@@ -14,8 +14,6 @@ const divide = function(a, b) {
 	return a / b;
 };
 
-let firstNum, operator, secondNum, solution;
-
 function operate(x, op, y) {
     switch (op) {
         case '+':
@@ -30,44 +28,45 @@ function operate(x, op, y) {
             console.log("Invalid operator");
     }
 };
-
 const display = document.querySelector('.display');
 const digitBtns = document.querySelectorAll('.digit');
+const clearBtn = document.querySelector('.clear');
+const operatorBtns = document.querySelectorAll('.operator');
+const equalsBtn = document.querySelector('.equals');
 
-let displayValue = display.textContent;
+class Calculator {
+    constructor(prevOperand, currOperand) {
+        this.prevOperand = prevOperand;
+        this.currOperand = currOperand;
+        this.operator = undefined;
+        
+        this.clearCalc = function() {
+            console.log("Calculator clear function");
+
+            this.updateDisplay("");
+        };
+        
+        this.updateDisplay = function(displayValue) {
+            display.textContent = displayValue;
+        };
+    }
+};
+
+const myCalculator = new Calculator();
 digitBtns.forEach((num) => {
     num.addEventListener('click', () => {
-        displayValue += num.textContent;
-        display.textContent = displayValue;
+        let input = display.textContent;
+        input += num.textContent;
+        myCalculator.updateDisplay(input);
     });
 });
 
-const clearBtn = document.querySelector('.clear');
 clearBtn.addEventListener('click', () => {
-    displayValue = "";
-    display.textContent = displayValue;
-    firstNum, secondNum, operator, solution = null;
+    myCalculator.clearCalc();
 });
 
-const operatorBtns = document.querySelectorAll('.operator');
 operatorBtns.forEach((operatorBtn) => {
     operatorBtn.addEventListener('click', () => {
-        operator = operatorBtn.textContent;
-        if(firstNum == null) {
-            firstNum = +displayValue;
-            displayValue = "";
-        } else {
-            secondNum = +displayValue;
-            displayValue = "";
-        }
-        console.log(`firstNum: ${firstNum}, operator: ${operator}, secondNum: ${secondNum}`);
-        if(firstNum != null && secondNum != null) {
-            solution = operate(firstNum, operator, secondNum);
-            display.textContent = solution;
-            firstNum = solution;
-            console.log(solution);
-        }
+        myCalculator.operator = operatorBtn.textContent;
     });
-}
-
-);
+});
