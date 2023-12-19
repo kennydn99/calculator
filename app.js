@@ -1,17 +1,17 @@
 const add = function(a, b) {
-	return a + b;
+	return parseFloat(a) + parseFloat(b);
 };
 
 const subtract = function(a, b) {
-	return a - b;
+	return parseFloat(a) - parseFloat(b);
 };
 
 const multiply = function(a, b) {
-	return a * b;
+	return parseFloat(a) * parseFloat(b);
 };
 
 const divide = function(a, b) {
-	return a / b;
+	return parseFloat(a) / parseFloat(b);
 };
 
 function operate(x, op, y) {
@@ -42,22 +42,25 @@ class Calculator {
         
         this.clearCalc = function() {
             console.log("Calculator clear function");
-
+            this.prevOperand, this.currOperand, this.operator = undefined;
             this.updateDisplay("");
         };
         
         this.updateDisplay = function(displayValue) {
             display.textContent = displayValue;
         };
+
+        this.appendNumber = function(num) {
+            display.textContent += num;
+        }
     }
 };
 
 const myCalculator = new Calculator();
 digitBtns.forEach((num) => {
     num.addEventListener('click', () => {
-        let input = display.textContent;
-        input += num.textContent;
-        myCalculator.updateDisplay(input);
+        myCalculator.appendNumber(num.textContent);
+        //myCalculator.updateDisplay(input);
     });
 });
 
@@ -68,5 +71,15 @@ clearBtn.addEventListener('click', () => {
 operatorBtns.forEach((operatorBtn) => {
     operatorBtn.addEventListener('click', () => {
         myCalculator.operator = operatorBtn.textContent;
+        myCalculator.prevOperand = display.textContent;
+        //console.log(myCalculator.prevOperand, myCalculator.operator, myCalculator.currOperand);
+        myCalculator.updateDisplay("");
     });
+});
+
+equalsBtn.addEventListener('click', () => {
+    myCalculator.currOperand = display.textContent;
+    let answer = operate(myCalculator.prevOperand, myCalculator.operator, myCalculator.currOperand);
+    console.log(answer);
+    myCalculator.updateDisplay(answer);
 });
