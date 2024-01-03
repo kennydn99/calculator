@@ -33,6 +33,7 @@ const digitBtns = document.querySelectorAll('.digit');
 const clearBtn = document.querySelector('.clear');
 const operatorBtns = document.querySelectorAll('.operator');
 const equalsBtn = document.querySelector('.equals');
+const decimalBtn = document.querySelector('.decimal');
 
 class Calculator {
     constructor(prevOperand, currOperand) {
@@ -60,9 +61,12 @@ const myCalculator = new Calculator();
 digitBtns.forEach((num) => {
     num.addEventListener('click', () => {
         myCalculator.appendNumber(num.textContent);
-        //myCalculator.updateDisplay(input);
     });
 });
+
+decimalBtn.addEventListener('click', () => {
+    myCalculator.appendNumber('.');
+})
 
 clearBtn.addEventListener('click', () => {
     myCalculator.clearCalc();
