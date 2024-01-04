@@ -40,6 +40,7 @@ class Calculator {
         this.prevOperand = prevOperand;
         this.currOperand = currOperand;
         this.operator = undefined;
+        this.prevBtnType = undefined;
         
         this.clearCalc = function() {
             console.log("Calculator clear function");
@@ -61,15 +62,26 @@ const myCalculator = new Calculator();
 digitBtns.forEach((num) => {
     num.addEventListener('click', () => {
         myCalculator.appendNumber(num.textContent);
+        operatorBtns.forEach((op) => op.classList.remove('is-depressed'));
+        myCalculator.prevBtnType = 'digit';
     });
 });
 
 decimalBtn.addEventListener('click', () => {
-    myCalculator.appendNumber('.');
+     
+    if (myCalculator.prevBtnType === 'op') {
+        myCalculator.appendNumber('0.');
+        console.log('zero.');
+    } else if(!display.textContent.includes('.')) {
+        console.log(myCalculator.prevBtnType)
+        myCalculator.appendNumber('.');
+    }
+    myCalculator.prevBtnType = 'decimal';
 })
 
 clearBtn.addEventListener('click', () => {
     myCalculator.clearCalc();
+    myCalculator.prevBtnType = 'clear';
 });
 
 operatorBtns.forEach((operatorBtn) => {
@@ -78,6 +90,8 @@ operatorBtns.forEach((operatorBtn) => {
         myCalculator.prevOperand = display.textContent;
         //console.log(myCalculator.prevOperand, myCalculator.operator, myCalculator.currOperand);
         myCalculator.updateDisplay("");
+        operatorBtn.classList.add('is-depressed');
+        myCalculator.prevBtnType = 'op';
     });
 });
 
@@ -86,4 +100,5 @@ equalsBtn.addEventListener('click', () => {
     let answer = operate(myCalculator.prevOperand, myCalculator.operator, myCalculator.currOperand);
     console.log(answer);
     myCalculator.updateDisplay(answer);
+    myCalculator.prevBtnType = 'equals';
 });

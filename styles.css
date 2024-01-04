@@ -3,3 +3,7 @@
     width: 150px;
     height: 20px;
 }
+
+.is-depressed {
+    background-color: red;
+}
