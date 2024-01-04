@@ -44,7 +44,10 @@ class Calculator {
         
         this.clearCalc = function() {
             console.log("Calculator clear function");
-            this.prevOperand, this.currOperand, this.operator = undefined;
+            this.prevOperand = undefined;
+            this.currOperand = undefined;
+            this.operator = undefined;
+            console.log(this.prevOperand, this.currOperand, this.operator);
             this.updateDisplay("");
         };
         
@@ -61,6 +64,9 @@ class Calculator {
 const myCalculator = new Calculator();
 digitBtns.forEach((num) => {
     num.addEventListener('click', () => {
+        if(myCalculator.prevBtnType === 'equals') {
+            myCalculator.updateDisplay('');
+        }
         myCalculator.appendNumber(num.textContent);
         operatorBtns.forEach((op) => op.classList.remove('is-depressed'));
         myCalculator.prevBtnType = 'digit';
@@ -86,11 +92,17 @@ clearBtn.addEventListener('click', () => {
 
 operatorBtns.forEach((operatorBtn) => {
     operatorBtn.addEventListener('click', () => {
-        myCalculator.operator = operatorBtn.textContent;
-        myCalculator.prevOperand = display.textContent;
-        //console.log(myCalculator.prevOperand, myCalculator.operator, myCalculator.currOperand);
-        myCalculator.updateDisplay("");
+        if(myCalculator.prevBtnType === 'digit') {
+            myCalculator.operator = operatorBtn.textContent;
+            myCalculator.prevOperand = display.textContent;
+        } else if(myCalculator.prevBtnType === 'op') {
+            let prevOperator = myCalculator.operator;
+            operatorBtns.forEach((op) => op.classList.remove('is-depressed'));
+            myCalculator.operator = operatorBtn.textContent;
+        }
         operatorBtn.classList.add('is-depressed');
+        console.log(myCalculator.prevOperand, myCalculator.operator, myCalculator.currOperand);
+        myCalculator.updateDisplay("");
         myCalculator.prevBtnType = 'op';
     });
 });
