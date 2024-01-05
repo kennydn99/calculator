@@ -28,6 +28,7 @@ function operate(x, op, y) {
             console.log("Invalid operator");
     }
 };
+
 const display = document.querySelector('.display');
 const digitBtns = document.querySelectorAll('.digit');
 const clearBtn = document.querySelector('.clear');
@@ -62,9 +63,10 @@ class Calculator {
 };
 
 const myCalculator = new Calculator();
+
 digitBtns.forEach((num) => {
     num.addEventListener('click', () => {
-        if(myCalculator.prevBtnType === 'equals') {
+        if(myCalculator.prevBtnType === 'equals' || myCalculator.prevBtnType === 'op') {
             myCalculator.updateDisplay('');
         }
         myCalculator.appendNumber(num.textContent);
@@ -74,7 +76,6 @@ digitBtns.forEach((num) => {
 });
 
 decimalBtn.addEventListener('click', () => {
-     
     if (myCalculator.prevBtnType === 'op') {
         myCalculator.appendNumber('0.');
         console.log('zero.');
@@ -92,17 +93,16 @@ clearBtn.addEventListener('click', () => {
 
 operatorBtns.forEach((operatorBtn) => {
     operatorBtn.addEventListener('click', () => {
-        if(myCalculator.prevBtnType === 'digit') {
+        if(myCalculator.prevBtnType === 'digit' || myCalculator.prevBtnType === 'equals') {
             myCalculator.operator = operatorBtn.textContent;
             myCalculator.prevOperand = display.textContent;
         } else if(myCalculator.prevBtnType === 'op') {
-            let prevOperator = myCalculator.operator;
             operatorBtns.forEach((op) => op.classList.remove('is-depressed'));
             myCalculator.operator = operatorBtn.textContent;
         }
         operatorBtn.classList.add('is-depressed');
         console.log(myCalculator.prevOperand, myCalculator.operator, myCalculator.currOperand);
-        myCalculator.updateDisplay("");
+        //myCalculator.updateDisplay("")
         myCalculator.prevBtnType = 'op';
     });
 });
@@ -114,3 +114,7 @@ equalsBtn.addEventListener('click', () => {
     myCalculator.updateDisplay(answer);
     myCalculator.prevBtnType = 'equals';
 });
+
+if(myCalculator.prevOperand && myCalculator.operator) {
+    myCalculator.updateDisplay(operate(myCalculator.prevOperand, myCalculator.operator, myCalculator.currOperand));
+}
