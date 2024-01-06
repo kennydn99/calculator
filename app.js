@@ -115,6 +115,3 @@ equalsBtn.addEventListener('click', () => {
     myCalculator.prevBtnType = 'equals';
 });
 
-if(myCalculator.prevOperand && myCalculator.operator) {
-    myCalculator.updateDisplay(operate(myCalculator.prevOperand, myCalculator.operator, myCalculator.currOperand));
-}
