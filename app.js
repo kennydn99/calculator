@@ -93,6 +93,14 @@ clearBtn.addEventListener('click', () => {
 
 operatorBtns.forEach((operatorBtn) => {
     operatorBtn.addEventListener('click', () => {
+        if(myCalculator.prevOperand && myCalculator.operator && myCalculator.prevBtnType !== 'equals') {
+            console.log('Need to calculate and update display');
+            myCalculator.currOperand = display.textContent;
+            let currentAns = operate(myCalculator.prevOperand, myCalculator.operator, myCalculator.currOperand);
+            console.log(currentAns);
+            myCalculator.updateDisplay(currentAns);
+            
+        }
         if(myCalculator.prevBtnType === 'digit' || myCalculator.prevBtnType === 'equals') {
             myCalculator.operator = operatorBtn.textContent;
             myCalculator.prevOperand = display.textContent;
