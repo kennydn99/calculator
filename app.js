@@ -76,9 +76,9 @@ digitBtns.forEach((num) => {
 });
 
 decimalBtn.addEventListener('click', () => {
-    if (myCalculator.prevBtnType === 'op') {
+    if (myCalculator.prevBtnType === 'op' || myCalculator.prevBtnType === undefined) {
+        myCalculator.updateDisplay('');
         myCalculator.appendNumber('0.');
-        console.log('zero.');
     } else if(!display.textContent.includes('.')) {
         console.log(myCalculator.prevBtnType)
         myCalculator.appendNumber('.');
