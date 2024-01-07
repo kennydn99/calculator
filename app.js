@@ -80,7 +80,6 @@ decimalBtn.addEventListener('click', () => {
         myCalculator.updateDisplay('');
         myCalculator.appendNumber('0.');
     } else if(!display.textContent.includes('.')) {
-        console.log(myCalculator.prevBtnType)
         myCalculator.appendNumber('.');
     }
     myCalculator.prevBtnType = 'decimal';
@@ -94,10 +93,8 @@ clearBtn.addEventListener('click', () => {
 operatorBtns.forEach((operatorBtn) => {
     operatorBtn.addEventListener('click', () => {
         if(myCalculator.prevOperand && myCalculator.operator && myCalculator.prevBtnType !== 'equals') {
-            console.log('Need to calculate and update display');
             myCalculator.currOperand = display.textContent;
             let currentAns = operate(myCalculator.prevOperand, myCalculator.operator, myCalculator.currOperand);
-            console.log(currentAns);
             myCalculator.updateDisplay(currentAns);
             
         }
@@ -109,17 +106,20 @@ operatorBtns.forEach((operatorBtn) => {
             myCalculator.operator = operatorBtn.textContent;
         }
         operatorBtn.classList.add('is-depressed');
-        console.log(myCalculator.prevOperand, myCalculator.operator, myCalculator.currOperand);
-        //myCalculator.updateDisplay("")
         myCalculator.prevBtnType = 'op';
     });
 });
 
 equalsBtn.addEventListener('click', () => {
-    myCalculator.currOperand = display.textContent;
-    let answer = operate(myCalculator.prevOperand, myCalculator.operator, myCalculator.currOperand);
-    console.log(answer);
-    myCalculator.updateDisplay(answer);
-    myCalculator.prevBtnType = 'equals';
+    if(myCalculator.prevOperand && myCalculator.operator && myCalculator.prevBtnType !== 'equals'){
+        myCalculator.currOperand = display.textContent;
+        if(myCalculator.operator === '/' && myCalculator.currOperand ==='0') {
+            myCalculator.updateDisplay('lmao');
+        } else {
+            let answer = operate(myCalculator.prevOperand, myCalculator.operator, myCalculator.currOperand);
+            myCalculator.updateDisplay(answer);
+        }
+        myCalculator.prevBtnType = 'equals';
+    }
 });
 
