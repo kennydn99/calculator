@@ -36,6 +36,7 @@ const operatorBtns = document.querySelectorAll('.operator');
 const equalsBtn = document.querySelector('.equals');
 const decimalBtn = document.querySelector('.decimal');
 const signBtn = document.querySelector('.sign');
+const percentBtn = document.querySelector('.percent');
 
 class Calculator {
     constructor(prevOperand, currOperand) {
@@ -131,4 +132,10 @@ signBtn.addEventListener('click', () => {
     } else {
         myCalculator.updateDisplay(currentNum.replace('-', ''));
     }
+});
+
+percentBtn.addEventListener('click', () => {
+    let currentNumber = display.textContent;
+    let percentAns = operate(currentNumber, '/', 100);
+    myCalculator.updateDisplay(percentAns);
 });
