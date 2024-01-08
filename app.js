@@ -35,6 +35,7 @@ const clearBtn = document.querySelector('.clear');
 const operatorBtns = document.querySelectorAll('.operator');
 const equalsBtn = document.querySelector('.equals');
 const decimalBtn = document.querySelector('.decimal');
+const signBtn = document.querySelector('.sign');
 
 class Calculator {
     constructor(prevOperand, currOperand) {
@@ -123,3 +124,11 @@ equalsBtn.addEventListener('click', () => {
     }
 });
 
+signBtn.addEventListener('click', () => {
+    let currentNum = display.textContent;
+    if(!currentNum.includes('-') && currentNum != ''){
+        myCalculator.updateDisplay('-' + currentNum);
+    } else {
+        myCalculator.updateDisplay(currentNum.replace('-', ''));
+    }
+});
