@@ -78,7 +78,7 @@ digitBtns.forEach((num) => {
 });
 
 decimalBtn.addEventListener('click', () => {
-    if (myCalculator.prevBtnType === 'op' || myCalculator.prevBtnType === undefined) {
+    if (myCalculator.prevBtnType === 'op' || myCalculator.prevBtnType === undefined || myCalculator.prevBtnType === 'clear') {
         myCalculator.updateDisplay('');
         myCalculator.appendNumber('0.');
     } else if(!display.textContent.includes('.')) {
@@ -89,6 +89,7 @@ decimalBtn.addEventListener('click', () => {
 
 clearBtn.addEventListener('click', () => {
     myCalculator.clearCalc();
+    operatorBtns.forEach((op) => op.classList.remove('is-depressed'));
     myCalculator.prevBtnType = 'clear';
 });
 
