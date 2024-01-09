@@ -1,9 +1,29 @@
 .display {
     border: 1px black solid;
-    width: 150px;
-    height: 20px;
+    width: auto;
+    height: 70px;
 }
 
 .is-depressed {
     background-color: darkgray;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border: 1px solid black;
+    width: 350px;
+    height: 430px;
+    padding: 8px;
+    gap: 8px;
+}
+
+button {
+    width: 80px;
+    height: 60px;
+}
+
+.zero {
+    width: 164px;
 }
