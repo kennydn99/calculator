@@ -1,31 +1,50 @@
+*{
+    font-family: Consolas, monaco;
+}
 .display {
-    border: 1px black solid;
     width: auto;
     height: 70px;
-}
-
-.is-depressed {
-    background-color: darkgray;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    font-size: 70px;
+    background-color: #eeeeee;
 }
 
 .container {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    border: 1px solid black;
-    width: 350px;
-    height: 430px;
+    border: 2px solid black;
+    width: 352px;
+    height: 432px;
     padding: 8px;
     gap: 8px;
     margin: auto;
     margin-top: 20%;
+    background-color: #393e46;
 }
 
 button {
     width: 80px;
     height: 60px;
+    font-size: 20px;
+    font-weight: 600;
+    background-color: #c3bef0;
 }
 
 .zero {
     width: 164px;
+}
+
+.operator, .equals {
+    background-color: #f96d00;
+}
+
+.digit, .decimal {
+    background-color: #bbe4e9;
+}
+
+.is-depressed {
+    background-color: #fdc57b;
 }
