@@ -34,10 +34,15 @@ function round(number) {
     //count number of decimal places
     //if num of decimal places is > 8
     //then round tofixed(8)
-
+    console.log(myCalculator.prevOperand, myCalculator.operator, myCalculator.currOperand);
     if(number % 1 != 0) {
-
+        let numOfDecimals = number.toString().split('.')[1].length;
+        if(numOfDecimals > 7) {
+            return number.toFixed(7);
+        }
     }
+    return number;
+    
 }
 
 const display = document.querySelector('.display');
@@ -66,7 +71,7 @@ class Calculator {
         };
         
         this.updateDisplay = function(displayValue) {
-            display.textContent = displayValue;
+            display.textContent = round(displayValue);
         };
 
         this.appendNumber = function(num) {
@@ -83,7 +88,6 @@ digitBtns.forEach((num) => {
             myCalculator.updateDisplay('');
         }
         if(display.textContent.length < 9) {
-            console.log(display.textContent.length);
             myCalculator.appendNumber(num.textContent);
         }
         operatorBtns.forEach((op) => op.classList.remove('is-depressed'));
@@ -134,6 +138,7 @@ equalsBtn.addEventListener('click', () => {
             myCalculator.updateDisplay('lmao');
         } else {
             let answer = operate(myCalculator.prevOperand, myCalculator.operator, myCalculator.currOperand);
+            console.log(answer, round(answer));
             myCalculator.updateDisplay(answer);
         }
         myCalculator.prevOperand = undefined;
