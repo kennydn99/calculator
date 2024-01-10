@@ -29,6 +29,17 @@ function operate(x, op, y) {
     }
 };
 
+function round(number) {
+    //if number is decimal
+    //count number of decimal places
+    //if num of decimal places is > 8
+    //then round tofixed(8)
+
+    if(number % 1 != 0) {
+
+    }
+}
+
 const display = document.querySelector('.display');
 const digitBtns = document.querySelectorAll('.digit');
 const clearBtn = document.querySelector('.clear');
@@ -71,7 +82,10 @@ digitBtns.forEach((num) => {
         if(myCalculator.prevBtnType === 'equals' || myCalculator.prevBtnType === 'op') {
             myCalculator.updateDisplay('');
         }
-        myCalculator.appendNumber(num.textContent);
+        if(display.textContent.length < 9) {
+            console.log(display.textContent.length);
+            myCalculator.appendNumber(num.textContent);
+        }
         operatorBtns.forEach((op) => op.classList.remove('is-depressed'));
         myCalculator.prevBtnType = 'digit';
     });
@@ -122,6 +136,7 @@ equalsBtn.addEventListener('click', () => {
             let answer = operate(myCalculator.prevOperand, myCalculator.operator, myCalculator.currOperand);
             myCalculator.updateDisplay(answer);
         }
+        myCalculator.prevOperand = undefined;
         myCalculator.prevBtnType = 'equals';
     }
 });
