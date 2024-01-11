@@ -1,6 +1,15 @@
 *{
     font-family: Consolas, monaco;
 }
+
+body {
+    background-color: #aef5cb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+
 .display {
     width: auto;
     height: 70px;
@@ -20,8 +29,6 @@
     height: 432px;
     padding: 8px;
     gap: 8px;
-    margin: auto;
-    margin-top: 15%;
     background-color: #393e46;
 }
 

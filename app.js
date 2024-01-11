@@ -30,16 +30,17 @@ function operate(x, op, y) {
 };
 
 function round(number) {
-    //if number is decimal
-    //count number of decimal places
-    //if num of decimal places is > 8
-    //then round tofixed(8)
-    console.log(myCalculator.prevOperand, myCalculator.operator, myCalculator.currOperand);
     if(number % 1 != 0) {
         let numOfDecimals = number.toString().split('.')[1].length;
-        if(numOfDecimals > 7) {
-            return number.toFixed(7);
+        let numOfDigitsBeforeDecimal = number.toString().split('.')[0].length;
+    
+        if(numOfDigitsBeforeDecimal > 2) {
+            number = number.toFixed(9 - numOfDigitsBeforeDecimal);
+        } else if(numOfDecimals > 7) {
+            number = number.toFixed(7);
         }
+    } else if(number.toString().length > 9) {
+        number = number.toExponential(2);
     }
     return number;
     
@@ -62,11 +63,9 @@ class Calculator {
         this.prevBtnType = undefined;
         
         this.clearCalc = function() {
-            console.log("Calculator clear function");
             this.prevOperand = undefined;
             this.currOperand = undefined;
             this.operator = undefined;
-            console.log(this.prevOperand, this.currOperand, this.operator);
             this.updateDisplay("");
         };
         
@@ -117,7 +116,6 @@ operatorBtns.forEach((operatorBtn) => {
             myCalculator.currOperand = display.textContent;
             let currentAns = operate(myCalculator.prevOperand, myCalculator.operator, myCalculator.currOperand);
             myCalculator.updateDisplay(currentAns);
-            
         }
         if(myCalculator.prevBtnType === 'digit' || myCalculator.prevBtnType === 'equals') {
             myCalculator.operator = operatorBtn.textContent;
@@ -135,10 +133,9 @@ equalsBtn.addEventListener('click', () => {
     if(myCalculator.prevOperand && myCalculator.operator && myCalculator.prevBtnType !== 'equals'){
         myCalculator.currOperand = display.textContent;
         if(myCalculator.operator === '/' && myCalculator.currOperand ==='0') {
-            myCalculator.updateDisplay('lmao');
+            display.textContent = 'lmao';
         } else {
             let answer = operate(myCalculator.prevOperand, myCalculator.operator, myCalculator.currOperand);
-            console.log(answer, round(answer));
             myCalculator.updateDisplay(answer);
         }
         myCalculator.prevOperand = undefined;
